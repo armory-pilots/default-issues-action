@@ -10,11 +10,13 @@ async function run(template_owner, template_repo, pilot) {
 
     // You can also pass in additional options as a second parameter to getOctokit
     // const octokit = github.getOctokit(myToken, {userAgent: "MyActionVersion1"});
+    const ghToken = core.getInput('token');
+    const octokit = github.getOctokit(ghToken);
 
     const { data: newRepo } = await octokit.repos.createUsingTemplate({
         template_owner,
         template_repo,
-        pilot,
+        pilot
     });
 
     console.log(newRepo);
@@ -24,8 +26,6 @@ try {
     // `who-to-greet` input defined in action metadata file
     const nameToGreet = core.getInput('name');
     console.log(`Hello ${nameToGreet}!`);
-    const ghToken = core.getInput('token');
-    const octokit = github.getOctokit(ghToken)
     // Get the JSON webhook payload for the event that triggered the workflow
     // const payload = JSON.stringify(github.context.payload, undefined, 2)
     // console.log(`The event payload: ${payload}`);
