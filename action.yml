@@ -1,0 +1,9 @@
+name: 'Default Issues'
+description: 'Default Issues for New Pilots'
+inputs:
+  name:  # id of input
+    description: 'Who is this pilot for?'
+    required: true
+runs:
+  using: 'node12'
+  main: 'index.js'
