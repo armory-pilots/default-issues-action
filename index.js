@@ -1,7 +1,7 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 
-async function run(template_owner, template_repo, pilot) {
+async function run() {
     // This should be a token with access to your repository scoped in as a secret.
     // The YML workflow will need to set myToken with the GitHub Secret Token
     // myToken: ${{ secrets.GITHUB_TOKEN }}
@@ -12,6 +12,9 @@ async function run(template_owner, template_repo, pilot) {
     // const octokit = github.getOctokit(myToken, {userAgent: "MyActionVersion1"});
     const ghToken = core.getInput('token');
     const octokit = github.getOctokit(ghToken);
+    const pilot = core.getInput('name');
+    const template_owner = "armory-pilots";
+    const template_repo = "armory-spinnaker-kustomize";
 
     const { data: newRepo } = await octokit.repos.createUsingTemplate({
         template_owner,
@@ -22,14 +25,17 @@ async function run(template_owner, template_repo, pilot) {
     console.log(newRepo);
 }
 
-try {
-    // `who-to-greet` input defined in action metadata file
-    const nameToGreet = core.getInput('name');
-    console.log(`Hello ${nameToGreet}!`);
-    // Get the JSON webhook payload for the event that triggered the workflow
-    // const payload = JSON.stringify(github.context.payload, undefined, 2)
-    // console.log(`The event payload: ${payload}`);
-    run('armory-pilots', 'armory-spinnaker-kustomize', nameToGreet)
-} catch (error) {
-    core.setFailed(error.message);
-}
+run();
+
+
+// try {
+//     // `who-to-greet` input defined in action metadata file
+//     const nameToGreet = core.getInput('name');
+//     console.log(`Hello ${nameToGreet}!`);
+//     // Get the JSON webhook payload for the event that triggered the workflow
+//     // const payload = JSON.stringify(github.context.payload, undefined, 2)
+//     // console.log(`The event payload: ${payload}`);
+//     run('armory-pilots', 'armory-spinnaker-kustomize', nameToGreet)
+// } catch (error) {
+//     core.setFailed(error.message);
+// }
