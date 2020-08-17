@@ -17,6 +17,8 @@ async function createRepo(octokit, pilot) {
 }
 
 async function cloneIssues(octokit, pilot) {
+    await new Promise(r => setTimeout(r, 5000));
+
     const { data: issues } = await octokit.issues.listForRepo({
         owner: "armory-pilots",
         repo: "armory-spinnaker-kustomize"
@@ -37,8 +39,7 @@ try {
     const octokit = github.getOctokit(ghToken);
     const pilot = core.getInput('name');
 
-    createRepo(octokit, pilot);
-    cloneIssues(octokit, pilot);
+    createRepo(octokit, pilot).then(cloneIssues(octokit, pilot));
 
 } catch (error) {
     core.setFailed(error.message);
