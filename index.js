@@ -19,7 +19,7 @@ async function createRepo(octokit, pilot) {
 async function cloneIssues(octokit, pilot) {
     const { data: issues } = await octokit.issues.listForRepo({
         owner: "armory-pilots",
-        repo: pilot
+        repo: "armory-spinnaker-kustomize"
     });
 
     for (const issue of issues) {
