@@ -22,14 +22,14 @@ async function cloneIssues(octokit, pilot) {
         repo: pilot
     });
 
-    issues.forEach(async issue => {
+    for (const issue of issues) {
         await octokit.issues.create({
             owner: "armory-pilots",
             repo: pilot,
             title: issue.title,
             body: issue.body
         })
-    })
+    }
 }
 
 try {
