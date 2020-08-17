@@ -8,6 +8,7 @@ async function createRepo(octokit, pilot) {
     const { data: newRepo } = await octokit.repos.createUsingTemplate({
         template_owner: templateOwner,
         template_repo: templateRepo,
+        owner: templateOwner,
         name: pilot,
         private: true
     });
