@@ -16,12 +16,30 @@ async function createRepo(octokit, pilot) {
     console.log(newRepo);
 }
 
+async function cloneIssues(octokit, pilot) {
+    const { data: issues } = await octokit.issues.listForRepo({
+        owner: "armory-pilots",
+        repo: pilot
+    });
+
+    issues.forEach(issue => {
+        await octokit.issues.create({
+            owner: "armory-pilots",
+            repo: pilot,
+            title: issue.title,
+            body: issue.body
+        })
+    })
+}
+
 try {
     const ghToken = core.getInput('pat');
     const octokit = github.getOctokit(ghToken);
     const pilot = core.getInput('name');
 
     createRepo(octokit, pilot);
+    cloneIssues(octokit, pilot);
+    
 } catch (error) {
     core.setFailed(error.message);
 }
