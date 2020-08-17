@@ -22,7 +22,7 @@ async function cloneIssues(octokit, pilot) {
         repo: pilot
     });
 
-    issues.forEach(issue => {
+    issues.forEach(async issue => {
         await octokit.issues.create({
             owner: "armory-pilots",
             repo: pilot,
@@ -39,7 +39,7 @@ try {
 
     createRepo(octokit, pilot);
     cloneIssues(octokit, pilot);
-    
+
 } catch (error) {
     core.setFailed(error.message);
 }
