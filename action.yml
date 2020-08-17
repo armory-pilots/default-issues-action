@@ -7,6 +7,9 @@ inputs:
   token:  # id of input
     description: 'The GitHub App Token'
     required: true
+  pat:  # id of input
+    description: 'The GitHub App Token'
+    required: true
 runs:
   using: 'node12'
   main: 'index.js'
