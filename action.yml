@@ -4,6 +4,9 @@ inputs:
   name:  # id of input
     description: 'Who is this pilot for?'
     required: true
+  token:  # id of input
+    description: 'The GitHub App Token'
+    required: true
 runs:
   using: 'node12'
   main: 'index.js'
