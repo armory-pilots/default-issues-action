@@ -6,9 +6,9 @@ async function createRepo(octokit, pilot) {
     const templateRepo = "armory-spinnaker-kustomize";
 
     const { data: newRepo } = await octokit.repos.createUsingTemplate({
-        template_owner: templateOwner,
-        template_repo: templateRepo,
-        name: pilot,
+        template_owner: "armory-pilots",
+        template_repo: "armory-spinnaker-kustomize",
+        name: "test",
         private: true
     });
 
